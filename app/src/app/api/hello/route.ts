@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { inngest } from "@/inngest/client";
-import sayHelloWorld from '@/inngest/events/hello';
+import { inngest } from "../../../inngest/client";
+import sayHelloWorld from '../../../inngest/events/hello';
 
 export const dynamic = "force-dynamic";
 

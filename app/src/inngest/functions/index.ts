@@ -1,4 +1,4 @@
-import helloWorld from '@/inngest/functions/hello-world'
+import helloWorld from './hello-world'
 
 const functions = [
   helloWorld,

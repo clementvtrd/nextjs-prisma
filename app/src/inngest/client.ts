@@ -1,4 +1,4 @@
-import { Events } from '@/inngest/events';
+import { Events } from './events';
 import { EventSchemas, Inngest } from "inngest";
 
 export const inngest = new Inngest({
