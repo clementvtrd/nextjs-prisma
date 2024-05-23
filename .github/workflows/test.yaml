@@ -5,6 +5,12 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        cmd: [lint, type-check]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -14,8 +20,5 @@ jobs:
       - name: Install dependencies
         run: docker compose run --no-deps --rm app npm install
 
-      - name: Lint code
-        run: docker compose run --no-deps --rm app npm run lint
-
-      - name: Assert type safety
-        run: docker compose run --no-deps --rm app npm run type-check
+      - name: ${{ matrix.cmd }}
+        run: docker compose run --no-deps --rm app npm run ${{ matrix.cmd }}
