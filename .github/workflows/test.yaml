@@ -1,0 +1,24 @@
+---
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        cmd: [lint, type-check]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build images
+        run: docker compose build app
+
+      - name: Install dependencies
+        run: docker compose run --no-deps --rm app npm install
+
+      - name: ${{ matrix.cmd }}
+        run: docker compose run --no-deps --rm app npm run ${{ matrix.cmd }}
