@@ -16,3 +16,6 @@ jobs:
 
       - name: Lint code
         run: docker compose run --no-deps --rm app npm run lint
+
+      - name: Assert type safety
+        run: docker compose run --no-deps --rm app npm run type-check
