@@ -1,0 +1,12 @@
+*
+
+!prisma
+!public
+!src
+!.eslintrc.json
+!next.config.mjs
+!package.json
+!package-lock.json
+!postcss.config.mjs
+!tailwind.config.ts
+!tsconfig.json

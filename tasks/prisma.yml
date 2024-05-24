@@ -1,0 +1,37 @@
+version: '3'
+
+tasks:
+  default:
+    cmd: { task: prisma }
+
+  prisma:
+    cmd: docker compose run --rm app npx prisma {{.CLI_ARGS}}
+
+  generate:
+    desc: Generate Prisma client
+    cmds:
+      - task: prisma
+        vars:
+          CLI_ARGS: generate
+
+  diff:
+    desc: Generate a migration from changes in Prisma schema
+    vars:
+      DATE:
+        sh: date +%Y%m%d%H%M%S
+    cmds:
+      - mkdir -p app/prisma/migrations/{{.DATE}}
+      - task: prisma
+        vars:
+          CLI_ARGS: |
+            migrate diff \
+              --from-schema-datasource prisma/schema.prisma \
+              --to-schema-datamodel prisma/schema.prisma \
+              --script > app/prisma/migrations/{{.DATE}}/migration.sql
+
+  deploy:
+    desc: Apply a migration to the database
+    cmds:
+      - task: prisma
+        vars:
+          CLI_ARGS: migrate deploy
