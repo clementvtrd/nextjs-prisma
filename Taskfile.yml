@@ -1,0 +1,13 @@
+version: '3'
+
+includes:
+  prisma: tasks/prisma.yml
+
+tasks:
+  init:
+    desc: Initialize the project
+    cmds:
+      - cmd: docker compose build
+      - cmd: docker compose run --rm app npm install --ci
+      - cmd: docker compose up --detach
+      - task: prisma:deploy
