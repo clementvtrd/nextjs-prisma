@@ -38,7 +38,7 @@ COPY . .
 
 COPY --from=dev-deps /opt/app/node_modules /opt/app/node_modules
 
-RUN npx prisma generate
+# RUN npx prisma generate
 
 RUN npm run build \
   # Move the static files to a standalone directory

@@ -1,0 +1,33 @@
+name: nextjs-fullstack
+region: ams
+
+features:
+- buildpack-stack=ubuntu-22
+
+ingress:
+  rules:
+  - component:
+      name: nextjs
+    match:
+      path:
+        prefix: /
+
+services:
+- dockerfile_path: app/Dockerfile
+  envs:
+  - key: INNGEST_SIGNING_KEY
+    scope: RUN_TIME
+    type: SECRET
+    value: EV[1:96pUtlvQTTodHWQgf9pUfZl9a+1FcJ+R:8ixwYgL+6Vq8f2lrAxLVfxGQnJQLiByHk+l18UU0aqeQC+EhqoF6FMQ82WTQHcbzucwcp8nR+xdfJONkfXFMad4yIDZh4FiewoImjSmjeyk7C5OP/s6gap/hE8xX]
+  - key: INNGEST_EVENT_KEY
+    scope: RUN_TIME
+    type: SECRET
+    value: EV[1:XyYQgA6uEKFtb4WRZVazgusMX1m7ANdu:qqhiNvF8aJqojgxmaPX1GkN2J9rVxQ0TqrymMwZKdpIdjFITxVlc2M9/UnfxHd1+oZ5AkeinOR7FZV8LyKGDXslI2tpPTLSF8ZtZEd8T78JHTUR1KygKhE7u2yigJXLxpXZtlddF]
+  git:
+    branch: main
+    repo_clone_url: https://github.com/clementvtrd/nextjs-fullstack.git
+  http_port: 3000
+  instance_count: 1
+  instance_size_slug: apps-s-1vcpu-0.5gb
+  name: nextjs
+  source_dir: app
