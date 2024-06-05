@@ -11,7 +11,7 @@ updates:
     open-pull-requests-limit: 5
 
   - package-ecosystem: docker
-    directory: /services/inngest/Dockerfile
+    directory: /services/postgres/Dockerfile
     schedule:
       interval: daily
       time: '06:00'
