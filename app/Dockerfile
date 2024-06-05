@@ -26,6 +26,8 @@ ENV NODE_ENV=test
 
 COPY . .
 
+RUN npx prisma generate
+
 FROM npm AS development
 
 VOLUME [ "/opt/app/.next" ]
@@ -38,7 +40,7 @@ COPY . .
 
 COPY --from=dev-deps /opt/app/node_modules /opt/app/node_modules
 
-# RUN npx prisma generate
+RUN npx prisma generate
 
 RUN npm run build \
   # Move the static files to a standalone directory

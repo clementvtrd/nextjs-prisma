@@ -29,3 +29,13 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+
+
+  # Generate Zod schemas
+  prisma-zod-generator:
+    build:
+      context: app
+      target: development
+    volumes:
+      - ./app:/opt/app
+    command: npx prisma generate
