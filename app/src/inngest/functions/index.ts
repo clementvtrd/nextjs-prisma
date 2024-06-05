@@ -1,7 +1,7 @@
-import helloWorld from './hello-world'
+import helloWorld from './hello-world';
 
 const functions = [
   helloWorld,
-]
+];
 
-export default functions
+export default functions;

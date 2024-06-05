@@ -5,11 +5,11 @@ export type Event = {
   }
 }
 
-export const name = 'test/hello.world'
+export const name = 'test/hello.world';
 
-export default function sayHelloWorld(userName: string): Event {
+export function sayHelloWorld(userName: string): Event {
   return {
     name,
     data: { name: userName },
-  }
+  };
 }
