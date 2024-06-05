@@ -6,8 +6,27 @@ includes:
 tasks:
   init:
     desc: Initialize the project
+    deps:
+      - init-env
+      - docker-build
+      - npm-install
     cmds:
-      - cmd: docker compose build
-      - cmd: docker compose run --no-deps --rm app npm install --ci
       - cmd: docker compose up --detach
       - task: prisma:deploy
+
+  init-env:
+    desc: Copy default environment variables
+    run: once
+    cmd: cp .env.dist .env.local
+    ignore_error: true
+    dir: app
+
+  docker-build:
+    desc: Build the Docker image
+    run: once
+    cmd: docker compose build
+
+  npm-install:
+    desc: Install the dependencies
+    deps: [docker-build]
+    cmd: docker compose run --no-deps --rm app npm install --ci
