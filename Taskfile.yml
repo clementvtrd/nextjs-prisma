@@ -8,6 +8,6 @@ tasks:
     desc: Initialize the project
     cmds:
       - cmd: docker compose build
-      - cmd: docker compose run --rm app npm install --ci
+      - cmd: docker compose run --no-deps --rm app npm install --ci
       - cmd: docker compose up --detach
       - task: prisma:deploy
