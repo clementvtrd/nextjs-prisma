@@ -3,19 +3,41 @@
 import { loginWithGoogle, logout } from '@/actions/auth';
 import { auth } from '@/auth';
 import AuthButton from '@/components/AuthButton';
+import Icon from '@/components/Icon';
+import Image from 'next/image';
 
 export default async function Header() {
   const session = await auth();
 
   return (
-    <header className="flex gap-4 justify-end items-center p-2 bg-red-500 text-white">
+    <header className="flex gap-4 justify-end items-center p-2 bg-red-500 text-slate-100">
       {
         session?.user == null
-          ? <AuthButton action={loginWithGoogle}>Sign In</AuthButton>
-          : (
+          ? (
+            <AuthButton action={loginWithGoogle}>
+              <Icon name="log-in" />
+              <span className="sr-only">Log in</span>
+            </AuthButton>
+          ) : (
             <>
-              <h1>Welcome, {session.user.name}</h1>
-              <AuthButton action={logout}>Sign Out</AuthButton>
+              {
+                session.user.image != null
+                  ? (
+                    <Image
+                      src={session.user.image}
+                      alt="User profile image"
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />) : (
+                    <span className="text-red-500 bg-slate-50 size-8 rounded-full flex justify-center items-center leading-4">
+                      {session.user.name?.charAt(0)}
+                    </span>)
+              }
+              <AuthButton action={logout}>
+                <Icon name="log-out" />
+                <span className="sr-only">Log out</span>
+              </AuthButton>
             </>
           )
       }
