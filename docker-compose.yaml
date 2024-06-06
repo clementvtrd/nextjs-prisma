@@ -33,16 +33,8 @@ services:
   adminer:
     image: adminer
     restart: unless-stopped
+    profiles: [adminer]
     environment:
       - ADMINER_DEFAULT_SERVER=postgres
     ports:
       - '8080:8080'
-
-  # Generate Zod schemas
-  prisma-zod-generator:
-    build:
-      context: app
-      target: development
-    volumes:
-      - ./app:/opt/app
-    command: npx prisma generate

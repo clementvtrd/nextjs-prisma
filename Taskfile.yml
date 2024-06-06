@@ -10,10 +10,13 @@ tasks:
       - init-env
       - docker-build
       - npm-install
+
+  start:
+    desc: Start the project
+    deps: [init]
     cmds:
       - cmd: docker compose up --detach
       - task: prisma:deploy
-      - task: prisma:generate
 
   init-env:
     desc: Copy default environment variables
@@ -33,3 +36,10 @@ tasks:
     desc: Install the dependencies
     deps: [docker-build]
     cmd: docker compose run --no-deps --rm app npm install --ci
+    sources:
+      - app/package.json
+      - app/package-lock.json
+      - app/prisma/schema.prisma
+    generates:
+      - app/node_modules/**/*
+      - app/prisma/generated/**/*
