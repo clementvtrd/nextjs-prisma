@@ -1,7 +1,7 @@
 "use server";
 
-import { MessageIndexResponse } from '@/app/api/messages/route';
 import { createMessage } from '@/mutations/message';
+import getAllMessages from '@/resolvers/message/getAllMessages';
 import Link from 'next/link';
 
 export default async function MessagesPage() {
@@ -24,15 +24,4 @@ export default async function MessagesPage() {
       </main>
     </section>
   );
-}
-
-async function getAllMessages() {
-  return await fetch(
-    `${process.env.BASE_URL}/api/messages`,
-    {
-      next: {
-        tags: ['messages'],
-      }
-    }
-  ).then(res => res.json()) as MessageIndexResponse;
 }
