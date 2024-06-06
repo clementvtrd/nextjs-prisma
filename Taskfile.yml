@@ -13,6 +13,7 @@ tasks:
     cmds:
       - cmd: docker compose up --detach
       - task: prisma:deploy
+      - task: prisma:generate
 
   init-env:
     desc: Copy default environment variables
@@ -20,6 +21,8 @@ tasks:
     cmd: cp .env.dist .env.local
     ignore_error: true
     dir: app
+    status:
+      - test -f .env.local
 
   docker-build:
     desc: Build the Docker image

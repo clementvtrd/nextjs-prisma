@@ -1,6 +1,6 @@
 "use server";
 
-import { createMessage } from '@/mutations/message';
+import { createMessage } from '@/actions/message';
 import getAllMessages from '@/resolvers/message/getAllMessages';
 import Link from 'next/link';
 
