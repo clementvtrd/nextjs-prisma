@@ -2,10 +2,10 @@ import { prismaDisconnect } from '@/decorator/prismaDisconnect';
 import client from '@/prisma-client';
 import { Prisma } from '@prisma/client';
 
-class MessageRepository {
+class Repository {
   @prismaDisconnect()
   public create(data: Prisma.MessageCreateInput) {
-    client.message.create({ data });
+    return client.message.create({ data });
   }
 
   @prismaDisconnect()
@@ -20,6 +20,6 @@ class MessageRepository {
   }
 }
 
-const repository = new MessageRepository();
+const MessageRepository = new Repository();
 
-export default repository;
+export default MessageRepository;

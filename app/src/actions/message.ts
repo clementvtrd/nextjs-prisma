@@ -11,7 +11,9 @@ export async function createMessage (formData: FormData) {
     },
   });
 
-  MessageRepository.create(data);
+  const message = await MessageRepository.create(data);
 
   revalidateTag('messages');
+
+  return message;
 }
