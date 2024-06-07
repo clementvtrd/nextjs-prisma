@@ -6,6 +6,7 @@ import AuthButton from '@/components/AuthButton';
 import Icon from '@/components/Icon';
 import Image from 'next/image';
 import Link from 'next/link';
+import LogoKnpWhite from '@/assets/logo-knp-white.svg';
 
 export default async function Header() {
   const session = await auth();
@@ -17,7 +18,7 @@ export default async function Header() {
           <Image
             height={32}
             priority
-            src={require('@/assets/logo-knp-white.svg')}
+            src={LogoKnpWhite}
             alt="KNP Labs"
           />
         </Link>
