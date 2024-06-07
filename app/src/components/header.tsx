@@ -11,11 +11,19 @@ export default async function Header() {
   const session = await auth();
 
   return (
-    <header className="flex gap-4 justify-between items-center p-2 bg-red-500 text-slate-100">
+    <header className="flex gap-4 justify-between items-center p-2 bg-primary text-slate-100">
       <div className="flex gap-4 justify-center items-center p-2">
+        <Link href="/">
+          <Image
+            height={32}
+            priority
+            src={require('@/assets/logo-knp-white.svg')}
+            alt="KNP Labs"
+          />
+        </Link>
         <nav>
           <ul>
-            <li><Link href="/messages">Messages</Link></li>
+            <li className="text-slate-100"><Link href="/messages">Messages</Link></li>
           </ul>
         </nav>
       </div>
@@ -40,9 +48,9 @@ export default async function Header() {
                       className="rounded-full"
                     />
                   ) : (
-                    <span className="text-red-500 bg-slate-50 size-8 rounded-full flex justify-center items-center leading-4">
+                    <span className="text-primary bg-slate-50 size-8 rounded-full flex justify-center items-center leading-4">
                       {session.user.name?.charAt(0)}
-                      </span>
+                    </span>
                   )
                 }
               <AuthButton action={logout}>
