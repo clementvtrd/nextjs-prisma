@@ -3,21 +3,31 @@ on:
   - push
 
 jobs:
-  test:
+  ci-cd:
+    name: CI/CD
+
     runs-on: ubuntu-latest
+
     env:
       COMPOSE_FILE: docker-compose.test.yaml
 
-    strategy:
-      fail-fast: false
-      matrix:
-        cmd: [lint, type-check]
-
     steps:
+      - name: Install Task
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
 
-      - name: Build images
-        run: docker compose build app
+      - name: Initialize environment
+        run: task init-env
 
-      - name: ${{ matrix.cmd }}
-        run: docker compose run --no-deps --rm app npm run ${{ matrix.cmd }}
+      - name: Build images
+        run: task docker-build
+
+      - name: lint
+        run: docker compose run --no-deps --rm app npm run lint
+
+      - name: Types checking
+        run: docker compose run --no-deps --rm app npm run type-check

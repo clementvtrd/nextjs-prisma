@@ -4,8 +4,6 @@ services:
     build:
       context: app
       target: development
-    environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/app?schema=public
     ports:
       - '3000:3000'
     volumes:

@@ -3,3 +3,5 @@ services:
     build:
       context: app
       target: test
+    env_file:
+      - app/.env.local

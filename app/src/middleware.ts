@@ -10,6 +10,6 @@ export default auth((request) => {
   }
 });
 
-export const config = {
+export const config: MiddlewareConfig = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-} satisfies MiddlewareConfig;
+};
