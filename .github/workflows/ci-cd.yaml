@@ -1,6 +1,10 @@
 ---
 on:
-  - push
+  push:
+    branches-ignore:
+      - main
+    tags-ignore:
+      - v*
 
 jobs:
   ci-cd:
