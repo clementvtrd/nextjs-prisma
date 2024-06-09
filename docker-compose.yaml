@@ -4,8 +4,6 @@ services:
     build:
       context: app
       target: development
-    environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/app?schema=public
     ports:
       - '3000:3000'
     volumes:
@@ -30,12 +28,11 @@ services:
       retries: 5
       start_period: 10s
 
-
-  # Generate Zod schemas
-  prisma-zod-generator:
-    build:
-      context: app
-      target: development
-    volumes:
-      - ./app:/opt/app
-    command: npx prisma generate
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    profiles: [adminer]
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+    ports:
+      - '8080:8080'

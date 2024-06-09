@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Luciole from '@/fonts/luciole';
+import Header from '@/components/Header';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,8 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={Luciole.className}>
-        {children}
+      <body className={[Luciole.className, "bg-slate-100"].join(' ')}>
+        <Header />
+        <section className="container p-4">
+          {children}
+        </section>
       </body>
     </html>
   );

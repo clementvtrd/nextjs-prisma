@@ -1,6 +1,7 @@
 "use server";
 
-import { createMessage } from '@/mutations/message';
+import { createMessage } from '@/actions/message';
+import Form from '@/components/Form';
 import getAllMessages from '@/resolvers/message/getAllMessages';
 import Link from 'next/link';
 
@@ -9,10 +10,10 @@ export default async function MessagesPage() {
 
   return (
     <section>
-      <form action={createMessage}>
+      <Form action={createMessage}>
         <textarea name="content" />
-        <button type="submit">Send</button>
-      </form>
+        <button className="p-2" type="submit">Send</button>
+      </Form>
       <main>
         <ul>
           {messages.map(message => (
