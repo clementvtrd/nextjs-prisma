@@ -1,4 +1,4 @@
-[![.github/workflows/test.yaml](https://github.com/clementvtrd/nextjs-fullstack/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/clementvtrd/nextjs-fullstack/actions/workflows/test.yaml)
+[![.github/workflows/ci-cd.yaml](https://github.com/clementvtrd/nextjs-prisma/actions/workflows/ci-cd.yaml/badge.svg)](https://github.com/clementvtrd/nextjs-prisma/actions/workflows/ci-cd.yaml)
 
 # NextJS Fullstack
 
