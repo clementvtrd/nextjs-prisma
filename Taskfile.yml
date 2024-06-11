@@ -21,11 +21,11 @@ tasks:
   init-env:
     desc: Copy default environment variables
     run: once
-    cmd: cp .env.dist .env.local
+    cmd: cp .env.dist .env
     ignore_error: true
     dir: app
     status:
-      - test -f .env.local
+      - test -f .env
 
   docker-build:
     desc: Build the Docker image

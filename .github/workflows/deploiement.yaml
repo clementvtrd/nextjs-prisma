@@ -1,0 +1,72 @@
+---
+on:
+  release:
+    types:
+      - prereleased
+      - released
+
+    variables:
+      BASE_URL:
+        required: true
+      AUTH_GOOGLE_RESTRICT_DOMAIN:
+        required: true
+      DOCKER_USERNAME:
+        required: true
+
+    secrets:
+      DOCKER_TOKEN:
+        required: true
+      DATABASE_URL:
+        required: true
+      AUTH_SECRET:
+        required: true
+      AUTH_GOOGLE_ID:
+        required: true
+      AUTH_GOOGLE_SECRET:
+        required: true
+
+jobs:
+  detect-environment:
+    name: Detect environment
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: detect-environment
+        run: |
+          if [[ ${{ github.event.release.tag_name }} == v* ]]; then
+            echo "stage=Production" >> $GITHUB_OUTPUT
+          else
+            echo "stage=Staging" >> $GITHUB_OUTPUT
+          fi
+
+  push-to-registry:
+    name: Build and push to registry
+
+    runs-on: ubuntu-latest
+
+    needs: detect-environment
+
+    environment:
+      name: ${{ needs.detect-environment.outputs.stage }}
+      url: ${{ variables.BASE_URL }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and push to registry
+        run: |
+          touch app/.env
+
+          echo "BASE_URL=${BASE_URL}" >> app/.env
+          echo "DATABASE_URL=${DATABASE_URL}" >> app/.env
+          echo "AUTH_SECRET=${AUTH_SECRET}" >> app/.env
+          echo "AUTH_GOOGLE_ID=${AUTH_GOOGLE_ID}" >> app/.env
+          echo "AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}" >> app/.env
+          echo "AUTH_GOOGLE_RESTRICT_DOMAIN=${AUTH_GOOGLE_RESTRICT_DOMAIN}" >> app/.env
+
+          docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
+          docker build -t $DOCKER_USERNAME/$GITHUB_REPOSITORY:$GITHUB_SHA .
+          docker push $DOCKER_USERNAME/$GITHUB_REPOSITORY:$GITHUB_SHA

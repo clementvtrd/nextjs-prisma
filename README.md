@@ -22,7 +22,7 @@ task init
 
 This will copy the default .env, build images and install NodeJS dependencies.
 
-You needs to update the [.env.local](./app/.env.local) with the following information:
+You needs to update the [.env](./app/.env) with the following information:
 
 - `AUTH_SECRET` can be generate with this command:
 
